@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UserDefinedTargetEventHandler.cs">
+    <Files>
+      <File FileName="Assets\Scripts\UDTAppManager.cs" Line="18" Column="22" />
+      <File FileName="Assets\Scripts\UDTUIEventHandler.cs" Line="171" Column="29" />
+      <File FileName="Assets\Scripts\UDTUIView.cs" Line="19" Column="16" />
+      <File FileName="Assets\Scripts\UserDefinedTargetEventHandler.cs" Line="46" Column="6" />
+      <File FileName="Assets\Common\UIFramework\AppManager.cs" Line="25" Column="40" />
+      <File FileName="Assets\Plugins\Editor\Unzip.js" Line="3" Column="8" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

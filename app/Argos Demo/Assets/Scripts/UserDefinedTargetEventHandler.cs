@@ -44,7 +44,6 @@ public class UserDefinedTargetEventHandler : MonoBehaviour, IUserDefinedTargetEv
         mNewUserDefinedTargetButton = MakeUIButton();
         mNewUserDefinedTargetButton.TappedOn += OnTappedOnNewTargetButton;
     }
-
     public void Draw()
     {
         mNewUserDefinedTargetButton.Draw();

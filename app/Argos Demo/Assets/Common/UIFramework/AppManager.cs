@@ -11,18 +11,16 @@ using System.Collections;
 public class AppManager : MonoBehaviour {
     
     #region PUBLIC_MEMBER_VARIABLES
-    public string TitleForAboutPage = "About";
     public ISampleAppUIEventHandler m_UIEventHandler;
     #endregion PUBLIC_MEMBER_VARIABLES
     
     #region PROTECTED_MEMBER_VARIABLES
     public static ViewType mActiveViewType;
-    public enum ViewType {SPLASHVIEW, ABOUTVIEW, UIVIEW, ARCAMERAVIEW};
+    public enum ViewType {SPLASHVIEW, ARCAMERAVIEW};
     #endregion PROTECTED_MEMBER_VARIABLES
     
     #region PRIVATE_MEMBER_VARIABLES
     private SplashScreenView mSplashView;
-    private AboutScreenView mAboutView;
     private float mSecondsVisible = 2.0f;
     #endregion PRIVATE_MEMBER_VARIABLES
     
@@ -30,11 +28,6 @@ public class AppManager : MonoBehaviour {
     public virtual void InitManager () 
     {
         mSplashView = new SplashScreenView();
-        mAboutView = new AboutScreenView();
-        mAboutView.SetTitle(TitleForAboutPage);
-        mAboutView.OnStartButtonTapped      += OnAboutStartButtonTapped;
-        m_UIEventHandler.CloseView          += OnTappedOnCloseButton;
-        m_UIEventHandler.GoToAboutPage      += OnTappedOnGoToAboutPage;
         InputController.SingleTapped        += OnSingleTapped;
         InputController.DoubleTapped        += OnDoubleTapped;
         InputController.BackButtonTapped    += OnBackButtonTapped;
@@ -58,67 +51,27 @@ public class AppManager : MonoBehaviour {
                 mSplashView.UpdateUI(true);
                 break;
             
-            case ViewType.ABOUTVIEW:
-                mAboutView.UpdateUI(true);
-                break;
-            
-            case ViewType.UIVIEW:
-                m_UIEventHandler.UpdateView(true);
-                break;
-            
             case ViewType.ARCAMERAVIEW:
                 break;
         }
     }
-    
-    #region UNITY_MONOBEHAVIOUR_METHODS
-    
-    void OnApplicationPause(bool tf)
-    {
-        //On hitting the home button, the app tends to turn off the flash
-        //So, setting the UI to reflect that
-        m_UIEventHandler.SetToDefault(tf);
-    }
-    
-    #endregion UNITY_MONOBEHAVIOUR_METHODS
+
     
     #region PRIVATE_METHODS
     
     private void OnSingleTapped()
     {
-        if(mActiveViewType == ViewType.ARCAMERAVIEW )
-        {
-            // trigger focus once
-            m_UIEventHandler.TriggerAutoFocus();
-        }
+        
     }
-    
-    private void OnDoubleTapped()
-    {
-        if(mActiveViewType == ViewType.ARCAMERAVIEW)
-        {
-            mActiveViewType = ViewType.UIVIEW;
-        }
-    }
-    
-    private void OnTappedOnGoToAboutPage()
-    {
-        mActiveViewType = ViewType.ABOUTVIEW;   
-    }
-    
+	private void OnDoubleTapped()
+	{
+
+	}
     private void OnBackButtonTapped()
     {
-        if(mActiveViewType == ViewType.ABOUTVIEW)
+        if(mActiveViewType == ViewType.ARCAMERAVIEW) //if it's in ARCameraView
         {
-            Application.Quit();
-        }
-        else if(mActiveViewType == ViewType.UIVIEW) //Hide UIMenu and Show ARCameraView
-        {
-            mActiveViewType = ViewType.ARCAMERAVIEW;
-        }
-        else if(mActiveViewType == ViewType.ARCAMERAVIEW) //if it's in ARCameraView
-        {
-            mActiveViewType = ViewType.ABOUTVIEW;
+			Application.Quit();
         }
         
     }
@@ -136,10 +89,7 @@ public class AppManager : MonoBehaviour {
     private IEnumerator LoadAboutPageForFirstTime()
     {
         yield return new WaitForSeconds(mSecondsVisible);
-        mSplashView.UnLoadView();
-        mActiveViewType = ViewType.ABOUTVIEW;
-        mAboutView.LoadView();
-        m_UIEventHandler.Bind();
+		mActiveViewType = ViewType.ARCAMERAVIEW;
         yield return null;
     }
     #endregion PRIVATE_METHODS
